@@ -9,17 +9,17 @@ const ProjectCard = ({ title, description, tags, githubUrl, liveUrl }) => (
     
     <div className="p-6">
       <div className="flex justify-between items-start mb-3">
-        <h3 className="text-lg font-bold text-[#1a1a2e] group-hover:text-blue-600 transition-colors">
+        <h3 className="text-lg font-bold text-[#111827] group-hover:text-slate-700 transition-colors">
           {title}
         </h3>
         <div className="flex gap-2.5">
           {githubUrl && (
-            <a href={githubUrl} target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-[#1a1a2e] transition-colors">
+            <a href={githubUrl} target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-[#111827] transition-colors">
               <Github className="w-4.5 h-4.5" />
             </a>
           )}
           {liveUrl && (
-            <a href={liveUrl} target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-[#1a1a2e] transition-colors">
+            <a href={liveUrl} target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-[#111827] transition-colors">
               <ExternalLink className="w-4.5 h-4.5" />
             </a>
           )}
@@ -65,14 +65,14 @@ const Projects = () => {
   ];
 
   return (
-    <section id="projects" className="py-24 bg-gray-50/50">
+    <section id="projects" className="py-24 bg-slate-950">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-4">
           <div>
-            <h2 className="text-xs font-bold tracking-[0.2em] text-gray-400 uppercase mb-3">Featured Work</h2>
-            <h3 className="text-3xl md:text-4xl font-bold text-[#1a1a2e]">Some things I've built.</h3>
+            <h2 className="text-xs font-bold tracking-[0.2em] text-slate-400 uppercase mb-3">Featured Work</h2>
+            <h3 className="text-3xl md:text-4xl font-bold text-slate-50">Some things I've built.</h3>
           </div>
-          <a href="#" className="hidden md:inline-flex items-center text-gray-400 hover:text-[#1a1a2e] font-medium text-sm group transition-colors">
+          <a href="#" className="hidden md:inline-flex items-center text-slate-400 hover:text-white font-medium text-sm group transition-colors">
             View all
             <ExternalLink className="w-3.5 h-3.5 ml-1.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
           </a>

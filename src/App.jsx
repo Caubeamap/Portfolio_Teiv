@@ -8,7 +8,7 @@ import Contact from './components/sections/Contact';
 
 function App() {
   return (
-    <div className="min-h-screen bg-white text-[#1a1a2e]">
+    <div className="min-h-screen bg-transparent text-slate-50">
       <Navbar />
       
       <main>
