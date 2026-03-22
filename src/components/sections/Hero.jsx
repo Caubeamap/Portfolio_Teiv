@@ -1,11 +1,17 @@
-import { Compass, Phone, MapPin, GraduationCap } from 'lucide-react';
-import teivPhoto from '../../assets/teiv.jpg';
+import { Compass, Phone, MapPin, GraduationCap } from "lucide-react";
+import Lanyard from "./Lanyard";
+import StudentCard from "./StudentCard";
 
 const Hero = () => {
   const badges = [
-    { icon: Compass, text: 'Seeking Internship', color: 'text-green-600', dot: true },
-    { icon: GraduationCap, text: 'K23FIT@HCMUS' },
-    { icon: MapPin, text: 'Ho Chi Minh City' },
+    {
+      icon: Compass,
+      text: "Seeking Internship",
+      color: "text-green-600",
+      dot: true,
+    },
+    { icon: GraduationCap, text: "K23FIT@HCMUS" },
+    { icon: MapPin, text: "Ho Chi Minh City" },
   ];
 
   return (
@@ -33,7 +39,9 @@ const Hero = () => {
                   <p className="text-xl sm:text-2xl font-semibold text-[#020617]">
                     Data Engineer
                     <span className="text-gray-400 font-light mx-3">·</span>
-                    <span className="text-gray-400 font-light">Data Analyst Enthusiast</span>
+                    <span className="text-gray-400 font-light">
+                      Data Analyst Enthusiast
+                    </span>
                   </p>
                 </div>
 
@@ -77,30 +85,12 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* Right - FIT@HCMUS style card with your photo, 1/3 */}
-          <div className="lg:basis-1/3 w-full animate-slide-in-right">
-            <div className="bg-[#111827] rounded-3xl shadow-2xl h-full flex items-center justify-center overflow-hidden relative border border-slate-800">
-              <div className="absolute inset-x-0 top-0 h-20 bg-gradient-to-r from-slate-900 to-slate-700 opacity-80 pointer-events-none" />
-              <div className="relative flex flex-col items-center gap-6 px-8 py-10">
-                <div className="text-xs font-bold tracking-[0.35em] text-gray-300 uppercase mb-1">
-                  FIT@HCMUS
-                </div>
-                <div className="w-40 h-40 sm:w-48 sm:h-48 lg:w-56 lg:h-56 rounded-full border-4 border-white shadow-xl overflow-hidden">
-                  <img
-                    src={teivPhoto}
-                    alt="Teiv portrait"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div className="text-center">
-                  <p className="text-sm font-medium tracking-[0.25em] uppercase text-gray-400">
-                    Data Engineer · Analyst
-                  </p>
-                  <p className="mt-2 text-2xl font-bold text-white tracking-tight">
-                    Việt Hoàng
-                  </p>
-                </div>
-              </div>
+          {/* Right - Interactive Lanyard Card (1/3) */}
+          <div className="lg:basis-1/3 w-full animate-slide-in-right min-h-[500px] lg:min-h-0">
+            <div className="rounded-3xl h-full overflow-hidden border border-slate-800 bg-slate-900/60">
+              <Lanyard>
+                <StudentCard />
+              </Lanyard>
             </div>
           </div>
         </div>

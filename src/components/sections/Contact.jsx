@@ -16,8 +16,8 @@ const Contact = () => {
           <div className="space-y-6">
             <h4 className="text-xl font-bold text-slate-50">Contact Information</h4>
             {[
-              { icon: Mail, text: 'hello@example.com', href: 'mailto:hello@example.com' },
-              { icon: Phone, text: '+84 123 456 789', href: 'tel:+84123456789' },
+              { icon: Mail, text: 'vh971190@gmail.com', href: 'mailto:vh971190@gmail.com' },
+              { icon: Phone, text: '+84 373564697', href: 'tel:+84373564697' },
               { icon: MapPin, text: 'Ho Chi Minh City, Vietnam' },
             ].map((item, i) => (
               <div key={i} className="flex items-center gap-4 p-4 rounded-xl hover:bg-slate-900 transition-colors group">
