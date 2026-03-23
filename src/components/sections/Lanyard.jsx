@@ -3,17 +3,15 @@ import Matter from 'matter-js';
 
 const { Engine, Runner, Bodies, Body, Composite, Constraint } = Matter;
 
-const CARD_W = 210;
-const CARD_H = 310;
+const CARD_W = 270;
+const CARD_H = 460;
 const ROPE_SEGMENTS = 6;
-const ROPE_SEG_LEN = 16;
+const ROPE_SEG_LEN = 14;
 
 export default function Lanyard({ children }) {
   const containerRef = useRef(null);
-  const canvasRef = useRef(null);
   const engineRef = useRef(null);
   const cardBodyRef = useRef(null);
-  const ropeSegsRef = useRef([]);
   const cardOverlayRef = useRef(null);
   const animRef = useRef(null);
   const draggingRef = useRef(false);
@@ -21,22 +19,25 @@ export default function Lanyard({ children }) {
   const anchPosRef = useRef({ x: 0, y: 0 });
   const [cursor, setCursor] = useState('grab');
 
+  // SVG Refs
+  const pathRef = useRef(null); // Used for textPath
+  const pathShadowRef = useRef(null);
+  const pathBaseRef = useRef(null);
+  const pathStitchRef = useRef(null);
+  const anchorClipRef = useRef(null);
+  const anchorHoleRef = useRef(null);
+  const cardClipRef = useRef(null);
+  
+  // Text Animation Refs
+  const textPathRef = useRef(null);
+  const textOffsetRef = useRef(100);
+
   useEffect(() => {
     const container = containerRef.current;
-    const canvas = canvasRef.current;
-    if (!container || !canvas) return;
+    if (!container) return;
 
-    const w = container.clientWidth;
-    const h = container.clientHeight;
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-
-    canvas.width = w * dpr;
-    canvas.height = h * dpr;
-    canvas.style.width = `${w}px`;
-    canvas.style.height = `${h}px`;
-
-    const ctx = canvas.getContext('2d');
-    ctx.scale(dpr, dpr);
+    let w = container.clientWidth;
+    let h = container.clientHeight;
 
     // Engine
     const engine = Engine.create({ gravity: { x: 0, y: 1 } });
@@ -52,7 +53,7 @@ export default function Lanyard({ children }) {
       collisionFilter: { group: -1 },
     });
 
-    // Rope segments — start hanging downward in a straight line
+    // Rope segments
     const segs = [];
     for (let i = 0; i < ROPE_SEGMENTS; i++) {
       const seg = Bodies.circle(
@@ -68,9 +69,8 @@ export default function Lanyard({ children }) {
       );
       segs.push(seg);
     }
-    ropeSegsRef.current = segs;
 
-    // Card body — positioned right below the last rope segment
+    // Card body
     const lastSegY = anchorY + ROPE_SEGMENTS * ROPE_SEG_LEN;
     const cardBody = Bodies.rectangle(
       anchorX,
@@ -86,12 +86,12 @@ export default function Lanyard({ children }) {
     );
     cardBodyRef.current = cardBody;
 
-    // Invisible walls to keep card in bounds
+    // Invisible walls
     const wallThickness = 40;
     const walls = [
-      Bodies.rectangle(w / 2, h + wallThickness / 2, w, wallThickness, { isStatic: true, render: { visible: false }, collisionFilter: { group: -1 } }), // bottom
-      Bodies.rectangle(-wallThickness / 2, h / 2, wallThickness, h, { isStatic: true, render: { visible: false }, collisionFilter: { group: -1 } }), // left
-      Bodies.rectangle(w + wallThickness / 2, h / 2, wallThickness, h, { isStatic: true, render: { visible: false }, collisionFilter: { group: -1 } }), // right
+      Bodies.rectangle(w / 2, h + wallThickness / 2, w, wallThickness, { isStatic: true, collisionFilter: { group: -1 } }), // bottom
+      Bodies.rectangle(-wallThickness / 2, h / 2, wallThickness, h, { isStatic: true, collisionFilter: { group: -1 } }), // left
+      Bodies.rectangle(w + wallThickness / 2, h / 2, wallThickness, h, { isStatic: true, collisionFilter: { group: -1 } }), // right
     ];
 
     // Constraints
@@ -110,7 +110,7 @@ export default function Lanyard({ children }) {
     consts.push(Constraint.create({
       bodyA: segs[ROPE_SEGMENTS - 1],
       bodyB: cardBody,
-      pointB: { x: 0, y: -CARD_H * 0.2 },
+      pointB: { x: 0, y: -CARD_H * 0.47 },
       length: ROPE_SEG_LEN,
       ...stiff,
     }));
@@ -119,12 +119,9 @@ export default function Lanyard({ children }) {
 
     // Runner
     const runner = Runner.create();
-    Runner.run(runner, engine);
+    let isVisible = true;
 
-    // --- DRAW LOOP ---
-    let cW = w;
-    let cH = h;
-
+    // --- DRAW LOOP (SVG Update) ---
     const draw = () => {
       // Handle drag
       if (draggingRef.current && draggingRef.current.active) {
@@ -137,17 +134,10 @@ export default function Lanyard({ children }) {
         Body.setAngularVelocity(cardBody, 0);
       }
 
-      // Clear
-      const curCtx = canvas.getContext('2d');
-      curCtx.save();
-      curCtx.setTransform(1, 0, 0, 1, 0, 0);
-      curCtx.clearRect(0, 0, canvas.width, canvas.height);
-      curCtx.restore();
-
-      // Build points: anchor → segments → card top
+      // Build points
       const aP = anchPosRef.current;
-      const cardTopX = cardBody.position.x + Math.sin(cardBody.angle) * (-CARD_H * 0.2);
-      const cardTopY = cardBody.position.y - Math.cos(cardBody.angle) * (CARD_H * 0.2);
+      const cardTopX = cardBody.position.x + Math.sin(cardBody.angle) * (-CARD_H * 0.47);
+      const cardTopY = cardBody.position.y - Math.cos(cardBody.angle) * (CARD_H * 0.47);
 
       const pts = [
         aP,
@@ -155,49 +145,48 @@ export default function Lanyard({ children }) {
         { x: cardTopX, y: cardTopY },
       ];
 
-      // Draw smooth rope
-      ctx.beginPath();
-      ctx.moveTo(pts[0].x, pts[0].y);
-
+      // Build string for SVG path
+      let d = `M ${pts[0].x} ${pts[0].y}`;
       if (pts.length > 2) {
-        // Smooth quadratic Bézier through midpoints
         for (let i = 1; i < pts.length - 1; i++) {
           const xc = (pts[i].x + pts[i + 1].x) / 2;
           const yc = (pts[i].y + pts[i + 1].y) / 2;
-          ctx.quadraticCurveTo(pts[i].x, pts[i].y, xc, yc);
+          d += ` Q ${pts[i].x} ${pts[i].y} ${xc} ${yc}`;
         }
-        ctx.lineTo(pts[pts.length - 1].x, pts[pts.length - 1].y);
+        d += ` L ${pts[pts.length - 1].x} ${pts[pts.length - 1].y}`;
       } else {
-        ctx.lineTo(pts[1].x, pts[1].y);
+        d += ` L ${pts[1].x} ${pts[1].y}`;
       }
 
-      // Rope stroke with gradient
-      const grad = ctx.createLinearGradient(aP.x, aP.y, cardTopX, cardTopY);
-      grad.addColorStop(0, '#64748b');
-      grad.addColorStop(1, '#94a3b8');
-      ctx.strokeStyle = grad;
-      ctx.lineWidth = 3;
-      ctx.lineCap = 'round';
-      ctx.lineJoin = 'round';
-      ctx.stroke();
+      // Update paths
+      if (pathRef.current) pathRef.current.setAttribute('d', d);
+      if (pathShadowRef.current) pathShadowRef.current.setAttribute('d', d);
+      if (pathBaseRef.current) pathBaseRef.current.setAttribute('d', d);
+      if (pathStitchRef.current) pathStitchRef.current.setAttribute('d', d);
 
-      // Anchor clip (bigger, metallic)
-      ctx.beginPath();
-      ctx.arc(aP.x, aP.y, 7, 0, Math.PI * 2);
-      const anchorGrad = ctx.createRadialGradient(aP.x - 2, aP.y - 2, 1, aP.x, aP.y, 7);
-      anchorGrad.addColorStop(0, '#9ca3af');
-      anchorGrad.addColorStop(1, '#4b5563');
-      ctx.fillStyle = anchorGrad;
-      ctx.fill();
+      if (anchorClipRef.current) {
+        anchorClipRef.current.setAttribute('cx', aP.x);
+        anchorClipRef.current.setAttribute('cy', aP.y);
+      }
 
-      // Card clip
-      ctx.beginPath();
-      ctx.arc(cardTopX, cardTopY, 5, 0, Math.PI * 2);
-      const clipGrad = ctx.createRadialGradient(cardTopX - 1, cardTopY - 1, 1, cardTopX, cardTopY, 5);
-      clipGrad.addColorStop(0, '#d1d5db');
-      clipGrad.addColorStop(1, '#6b7280');
-      ctx.fillStyle = clipGrad;
-      ctx.fill();
+      if (anchorHoleRef.current) {
+        anchorHoleRef.current.setAttribute('cx', aP.x);
+        anchorHoleRef.current.setAttribute('cy', aP.y);
+      }
+      
+      if (cardClipRef.current) {
+        cardClipRef.current.setAttribute('cx', cardTopX);
+        cardClipRef.current.setAttribute('cy', cardTopY);
+      }
+
+      // Animate Text Scroll
+      textOffsetRef.current -= 0.4; // Speed of scrolling (moves upwards)
+      if (textOffsetRef.current <= -20) {
+        textOffsetRef.current = 120; // Wrap around to the bottom
+      }
+      if (textPathRef.current) {
+        textPathRef.current.setAttribute('startOffset', `${textOffsetRef.current}%`);
+      }
 
       // Position card HTML overlay
       const el = cardOverlayRef.current;
@@ -210,7 +199,26 @@ export default function Lanyard({ children }) {
       animRef.current = requestAnimationFrame(draw);
     };
 
-    animRef.current = requestAnimationFrame(draw);
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          if (!isVisible) {
+            isVisible = true;
+            Runner.run(runner, engine);
+            draw();
+          }
+        } else {
+          isVisible = false;
+          Runner.stop(runner);
+          cancelAnimationFrame(animRef.current);
+        }
+      });
+    }, { threshold: 0.0 });
+    
+    observer.observe(container);
+
+    Runner.run(runner, engine);
+    draw();
 
     // --- MOUSE / TOUCH ---
     const getPos = (e) => {
@@ -268,26 +276,19 @@ export default function Lanyard({ children }) {
 
     // Resize
     const onResize = () => {
-      cW = container.clientWidth;
-      cH = container.clientHeight;
-      const d = Math.min(window.devicePixelRatio || 1, 2);
-      canvas.width = cW * d;
-      canvas.height = cH * d;
-      canvas.style.width = `${cW}px`;
-      canvas.style.height = `${cH}px`;
-      const c = canvas.getContext('2d');
-      c.scale(d, d);
-      const newAnchorX = cW / 2;
+      w = container.clientWidth;
+      h = container.clientHeight;
+      const newAnchorX = w / 2;
       Body.setPosition(anchor, { x: newAnchorX, y: 30 });
       anchPosRef.current = { x: newAnchorX, y: 30 };
-      // Update wall positions
-      Body.setPosition(walls[0], { x: cW / 2, y: cH + wallThickness / 2 });
-      Body.setPosition(walls[1], { x: -wallThickness / 2, y: cH / 2 });
-      Body.setPosition(walls[2], { x: cW + wallThickness / 2, y: cH / 2 });
+      Body.setPosition(walls[0], { x: w / 2, y: h + wallThickness / 2 });
+      Body.setPosition(walls[1], { x: -wallThickness / 2, y: h / 2 });
+      Body.setPosition(walls[2], { x: w + wallThickness / 2, y: h / 2 });
     };
     window.addEventListener('resize', onResize);
 
     return () => {
+      observer.disconnect();
       window.removeEventListener('resize', onResize);
       container.removeEventListener('mousedown', onDown);
       window.removeEventListener('mousemove', onMove);
@@ -310,13 +311,51 @@ export default function Lanyard({ children }) {
         height: '100%',
         cursor,
         overflow: 'hidden',
-        minHeight: 520,
+        minHeight: 650,
       }}
     >
-      <canvas
-        ref={canvasRef}
-        style={{ position: 'absolute', top: 0, left: 0, pointerEvents: 'none' }}
-      />
+      <svg
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          pointerEvents: 'none',
+          width: '100%',
+          height: '100%',
+          zIndex: 1,
+        }}
+      >
+        <defs>
+          <path id="lanyard-path" ref={pathRef} fill="none" stroke="transparent" />
+          <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+            <feDropShadow dx="0" dy="4" stdDeviation="5" floodColor="#000" floodOpacity="0.5" />
+          </filter>
+        </defs>
+
+        {/* Lanyard Shadow */}
+        <path ref={pathShadowRef} fill="none" stroke="#000" strokeWidth="26" opacity="0.3" filter="url(#shadow)" />
+        
+        {/* Lanyard Base Ribbon */}
+        <path ref={pathBaseRef} fill="none" stroke="#0f172a" strokeWidth="24" strokeLinecap="round" strokeLinejoin="round" />
+        
+        {/* Inner Stitching/Decor */}
+        <path ref={pathStitchRef} fill="none" stroke="#1e293b" strokeWidth="20" strokeLinecap="round" strokeLinejoin="round" />
+
+        {/* Scrolling Text */}
+        <text fontSize="14" fontWeight="900" fill="#38bdf8" letterSpacing="4">
+          <textPath ref={textPathRef} href="#lanyard-path" startOffset="100%" textAnchor="middle">
+            HCMUS
+          </textPath>
+        </text>
+
+        {/* Anchor Point details */}
+        <circle ref={anchorClipRef} r="9" fill="#334155" stroke="#94a3b8" strokeWidth="2" filter="url(#shadow)" />
+        <circle ref={anchorHoleRef} r="4" fill="#0f172a" />
+
+        {/* Card Mount details */}
+        <circle ref={cardClipRef} r="7" fill="#64748b" stroke="#cbd5e1" strokeWidth="1" filter="url(#shadow)" />
+      </svg>
+      
       <div
         ref={cardOverlayRef}
         style={{
@@ -326,6 +365,7 @@ export default function Lanyard({ children }) {
           pointerEvents: 'none',
           transformOrigin: 'center center',
           willChange: 'transform, left, top',
+          zIndex: 2,
         }}
       >
         {children}

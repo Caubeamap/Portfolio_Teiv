@@ -65,17 +65,15 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed top-0 w-2/3 mx-auto z-50 flex justify-center pt-4 px-4 transition-all duration-700 ease-out ${
+      className={`fixed top-0 w-full lg:w-2/3 mx-auto z-50 flex justify-center pt-6 px-4 transition-all duration-700 ease-out ${
         isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-8'
       }`}
     >
       {/* ─── Desktop Navbar ─── */}
       <div
         ref={navRef}
-        className="hidden lg:flex items-center relative bg-slate-900/80 backdrop-blur-2xl rounded-[16px] px-1.5 py-1.5 border border-slate-800"
-        style={{
-          boxShadow: '0 10px 30px rgba(15,23,42,0.8), 0 0 0 1px rgba(15,23,42,0.9)',
-        }}
+        className="hidden lg:flex items-center relative glass-panel rounded-[16px] px-1.5 py-1.5"
+        style={{ borderRadius: '100px' }}
       >
         {/* Sliding pill indicator */}
         <div
@@ -84,9 +82,12 @@ const Navbar = () => {
             left: `${indicatorStyle.left}px`,
             width: `${indicatorStyle.width}px`,
             height: 'calc(100% - 12px)',
-            background: '#f9fafb',
+            background: 'rgba(255, 255, 255, 0.1)',
+            backdropFilter: 'blur(8px)',
+            border: '1px solid rgba(255, 255, 255, 0.2)',
             transition: 'left 0.35s cubic-bezier(0.4, 0, 0.2, 1), width 0.35s cubic-bezier(0.4, 0, 0.2, 1)',
-            boxShadow: '0 10px 25px rgba(15,23,42,0.7)',
+            boxShadow: '0 0 20px rgba(255,255,255,0.1)',
+            borderRadius: '100px',
           }}
         />
 
@@ -105,8 +106,8 @@ const Navbar = () => {
               }}
               className={`relative z-10 px-5 py-2.5 rounded-[12px] text-[13px] font-semibold whitespace-nowrap select-none transition-colors duration-300 ${
                 isActive
-                  ? 'text-slate-900'
-                  : 'text-slate-300 hover:text-white'
+                  ? 'text-white text-glow'
+                  : 'text-slate-400 hover:text-white'
               }`}
             >
               {link.name}
@@ -118,12 +119,9 @@ const Navbar = () => {
       {/* ─── Mobile Navbar ─── */}
       <div className="lg:hidden w-full">
         <div
-          className="flex items-center justify-between bg-slate-900/85 backdrop-blur-2xl rounded-[16px] px-5 py-3.5 border border-slate-800"
-          style={{
-            boxShadow: '0 10px 30px rgba(15,23,42,0.8), 0 0 0 1px rgba(15,23,42,0.9)',
-          }}
+          className="flex items-center justify-between glass-panel rounded-2xl px-6 py-4"
         >
-          <span className="text-lg font-black text-slate-50 tracking-tight">Portfolio</span>
+          <span className="text-lg font-black text-white tracking-tight">Việt <span className="text-gradient">Hoàng.</span></span>
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className="relative w-9 h-9 flex items-center justify-center rounded-[10px] bg-slate-800 hover:bg-slate-700 text-slate-100 hover:text-white transition-all"
@@ -148,10 +146,7 @@ const Navbar = () => {
           }}
         >
           <div
-            className="bg-slate-900/95 backdrop-blur-2xl rounded-[16px] py-2 px-2 border border-slate-800"
-            style={{
-              boxShadow: '0 8px 40px rgba(15,23,42,0.9), 0 0 0 1px rgba(15,23,42,1)',
-            }}
+            className="glass-panel rounded-[16px] py-2 px-2"
           >
             {navLinks.map((link, index) => {
               const sectionId = link.href.replace('#', '');
@@ -168,8 +163,8 @@ const Navbar = () => {
                   }}
                   className={`flex items-center px-4 py-3 rounded-[10px] text-[13px] font-semibold transition-all duration-200 ${
                     isActive
-                      ? 'bg-slate-100 text-slate-900 shadow-md'
-                      : 'text-slate-300 hover:text-white hover:bg-slate-800'
+                      ? 'bg-slate-800/50 text-white shadow-md border border-slate-700/50'
+                      : 'text-slate-400 hover:text-white hover:bg-slate-800/30'
                   }`}
                   style={{
                     transitionDelay: isMobileMenuOpen ? `${index * 30}ms` : '0ms',
