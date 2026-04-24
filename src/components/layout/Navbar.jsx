@@ -82,11 +82,11 @@ const Navbar = () => {
             left: `${indicatorStyle.left}px`,
             width: `${indicatorStyle.width}px`,
             height: 'calc(100% - 12px)',
-            background: 'rgba(255, 255, 255, 0.1)',
+            background: 'rgba(99, 102, 241, 0.12)',
             backdropFilter: 'blur(8px)',
-            border: '1px solid rgba(255, 255, 255, 0.2)',
+            border: '1px solid rgba(99, 102, 241, 0.25)',
             transition: 'left 0.35s cubic-bezier(0.4, 0, 0.2, 1), width 0.35s cubic-bezier(0.4, 0, 0.2, 1)',
-            boxShadow: '0 0 20px rgba(255,255,255,0.1)',
+            boxShadow: '0 8px 20px rgba(99,102,241,0.2)',
             borderRadius: '100px',
           }}
         />
@@ -106,8 +106,8 @@ const Navbar = () => {
               }}
               className={`relative z-10 px-5 py-2.5 rounded-[12px] text-[13px] font-semibold whitespace-nowrap select-none transition-colors duration-300 ${
                 isActive
-                  ? 'text-white text-glow'
-                  : 'text-slate-400 hover:text-white'
+                  ? 'text-slate-900'
+                  : 'text-slate-500 hover:text-slate-900'
               }`}
             >
               {link.name}
@@ -121,10 +121,10 @@ const Navbar = () => {
         <div
           className="flex items-center justify-between glass-panel rounded-2xl px-6 py-4"
         >
-          <span className="text-lg font-black text-white tracking-tight">Việt <span className="text-gradient">Hoàng.</span></span>
+          <span className="text-lg font-black text-slate-900 tracking-tight">Việt <span className="text-gradient-primary">Hoàng.</span></span>
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="relative w-9 h-9 flex items-center justify-center rounded-[10px] bg-slate-800 hover:bg-slate-700 text-slate-100 hover:text-white transition-all"
+            className="relative w-9 h-9 flex items-center justify-center rounded-[10px] bg-slate-100 hover:bg-slate-200 text-slate-600 hover:text-slate-900 transition-all"
           >
             <span className={`transition-all duration-300 absolute ${isMobileMenuOpen ? 'rotate-90 opacity-0' : 'rotate-0 opacity-100'}`}>
               <Menu size={18} />
@@ -163,8 +163,8 @@ const Navbar = () => {
                   }}
                   className={`flex items-center px-4 py-3 rounded-[10px] text-[13px] font-semibold transition-all duration-200 ${
                     isActive
-                      ? 'bg-slate-800/50 text-white shadow-md border border-slate-700/50'
-                      : 'text-slate-400 hover:text-white hover:bg-slate-800/30'
+                      ? 'bg-indigo-100 text-slate-900 shadow-md border border-indigo-200'
+                      : 'text-slate-500 hover:text-slate-900 hover:bg-slate-100'
                   }`}
                   style={{
                     transitionDelay: isMobileMenuOpen ? `${index * 30}ms` : '0ms',

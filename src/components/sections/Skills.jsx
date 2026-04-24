@@ -37,37 +37,37 @@ const Skills = () => {
   ];
 
   const SkillCard = ({ skill }) => (
-    <div className={`flex items-center gap-4 px-6 py-4 rounded-2xl glass-panel group min-w-[200px] relative overflow-hidden transition-all duration-500 border ${skill.border} hover:border-white/20`}
+    <div className={`flex items-center gap-4 px-6 py-4 rounded-2xl glass-panel group min-w-[200px] relative overflow-hidden transition-all duration-500 border ${skill.border} hover:border-indigo-300`}
     >
       <div className={`absolute inset-0 bg-gradient-to-br ${skill.color} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}></div>
       <div className="w-10 h-10 flex items-center justify-center relative z-10">
         {skill.logo ? (
           <img src={skill.logo} alt={skill.name} className="w-9 h-9 object-contain rounded-lg group-hover:scale-110 transition-transform duration-500" />
         ) : (
-          <skill.icon className="w-7 h-7 text-slate-400 group-hover:text-white transition-colors" />
+          <skill.icon className="w-7 h-7 text-slate-500 group-hover:text-slate-900 transition-colors" />
         )}
       </div>
-      <span className="text-lg font-bold text-slate-300 group-hover:text-white transition-colors relative z-10 uppercase tracking-wide">
+      <span className="text-lg font-bold text-slate-700 group-hover:text-slate-900 transition-colors relative z-10 uppercase tracking-wide">
         {skill.name}
       </span>
     </div>
   );
 
   return (
-    <section id="skills" className="py-24 relative overflow-hidden bg-[#020617]">
+    <section id="skills" className="py-24 relative overflow-hidden">
       {/* Decorative center glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-[#38bdf8]/5 rounded-full blur-[150px] pointer-events-none opacity-40"></div>
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-[#38bdf8]/15 rounded-full blur-[150px] pointer-events-none opacity-50" />
       
       <div className="max-w-7xl mx-auto px-6 mb-20 relative z-10">
         <div className="text-center md:text-left">
           <div className="inline-flex items-center gap-2 mb-4">
             <Sparkles className="w-4 h-4 text-[#38bdf8]" />
-            <h2 className="text-xs font-bold tracking-[0.3em] text-[#38bdf8] uppercase">Skills & Mastery</h2>
+            <h2 className="text-xs font-bold tracking-[0.3em] text-[#0284c7] uppercase">Skills & Mastery</h2>
           </div>
-          <h3 className="text-4xl md:text-6xl font-black text-white tracking-tight">
+          <h3 className="text-4xl md:text-6xl font-black text-slate-900 tracking-tight">
             My Technological <span className="text-gradient">Arsenal.</span>
           </h3>
-          <p className="mt-6 text-slate-400 max-w-2xl text-lg font-medium leading-relaxed">
+          <p className="mt-6 text-slate-600 max-w-2xl text-lg font-medium leading-relaxed">
             I specialize in bridging the gap between <span className="text-[#38bdf8]">robust data engineering</span> and <span className="text-[#818cf8]">dynamic frontend experiences.</span>
           </p>
         </div>

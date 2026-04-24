@@ -4,11 +4,11 @@ import { Code, Server, MonitorSmartphone, Sparkles } from "lucide-react";
 const ServiceCard = ({ icon: Icon, title, description }) => (
   <div className="glass-panel p-6 rounded-2xl group transition-all duration-500 hover:-translate-y-2 relative overflow-hidden">
     <div className="absolute inset-0 bg-gradient-to-br from-[#38bdf8]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-    <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-500 bg-slate-800/50 border border-slate-700/50 group-hover:border-[#38bdf8]/50 group-hover:shadow-[0_0_15px_rgba(56,189,248,0.2)] relative z-10">
+    <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-500 bg-white border border-slate-200 group-hover:border-[#38bdf8]/50 group-hover:shadow-[0_0_15px_rgba(56,189,248,0.2)] relative z-10">
       <Icon className="text-[#38bdf8] w-6 h-6" />
     </div>
-    <h3 className="text-lg font-bold text-slate-100 mb-2 relative z-10 group-hover:text-white transition-colors">{title}</h3>
-    <p className="text-slate-400 leading-relaxed text-sm relative z-10">{description}</p>
+    <h3 className="text-lg font-bold text-slate-900 mb-2 relative z-10 transition-colors">{title}</h3>
+    <p className="text-slate-600 leading-relaxed text-sm relative z-10">{description}</p>
   </div>
 );
 
@@ -113,13 +113,13 @@ const About = () => {
   return (
     <section id="about" ref={sectionRef} className="py-24 relative overflow-hidden">
       {/* Decorative background elements */}
-      <div className="absolute top-1/2 right-0 w-[500px] h-[500px] bg-[#818cf8]/5 rounded-full blur-[100px] pointer-events-none transform translate-x-1/2 -translate-y-1/2"></div>
+      <div className="absolute top-1/2 right-0 w-[500px] h-[500px] bg-[#818cf8]/15 rounded-full blur-[100px] pointer-events-none transform translate-x-1/2 -translate-y-1/2" />
       
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
         <div className="grid md:grid-cols-2 gap-16 items-center mb-16">
           <div>
             <div className="inline-flex items-center gap-2 mb-4">
-              <Sparkles className="w-4 h-4 text-[#818cf8]" />
+              <Sparkles className="w-4 h-4 text-[#6366f1]" />
               <h2 className="text-xs font-bold tracking-[0.2em] text-[#818cf8] uppercase">
                 About Me
               </h2>
@@ -130,9 +130,9 @@ const About = () => {
               active={lineIndex >= 1}
               onComplete={next(2)}
               delay={100}
-              className="text-3xl md:text-4xl font-bold text-white mb-6"
+              className="text-3xl md:text-4xl font-bold text-slate-900 mb-6"
             />
-            <div className="space-y-4 text-slate-300 text-base leading-relaxed">
+            <div className="space-y-4 text-slate-600 text-base leading-relaxed">
               <TypewriterLine
                 text="I'm a third-year student at HCMUS, focusing on data engineering and analytics. Since 2023, I have been learning how to work with data and how to build web applications that present information clearly."
                 active={lineIndex >= 2}
@@ -171,11 +171,11 @@ const About = () => {
                 key={i}
                 className="glass-panel p-6 rounded-2xl group transition-all duration-300 hover:-translate-y-1 hover:border-[#818cf8]/30 max-h-[140px] flex flex-col justify-center relative overflow-hidden"
               >
-                <div className="absolute inset-0 bg-gradient-to-tr from-[#818cf8]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                <h4 className="text-4xl font-black text-white mb-1 tracking-tight">
+                <div className="absolute inset-0 bg-gradient-to-tr from-[#818cf8]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                <h4 className="text-4xl font-black text-slate-900 mb-1 tracking-tight">
                   <span className="text-gradient">{stat.num}</span>
                 </h4>
-                <p className="text-slate-400 text-sm font-medium">
+                <p className="text-slate-600 text-sm font-medium">
                   {stat.label}
                 </p>
               </div>

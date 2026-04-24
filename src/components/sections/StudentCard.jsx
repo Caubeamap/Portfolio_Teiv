@@ -7,7 +7,7 @@ export default function StudentCard() {
     <div
       className="relative w-full h-full rounded-[24px] overflow-hidden glass-panel group bg-[#020617]/80"
       style={{
-        boxShadow: '0 30px 60px -12px rgba(0,0,0,1), inset 0 0 0 1px rgba(56, 189, 248, 0.2), inset 0 20px 40px -20px rgba(56, 189, 248, 0.15)',
+        boxShadow: '0 20px 50px -18px rgba(30,41,59,0.35), inset 0 0 0 1px rgba(56, 189, 248, 0.25), inset 0 20px 40px -20px rgba(56, 189, 248, 0.12)',
         backdropFilter: 'blur(16px)',
         display: 'flex',
         flexDirection: 'column',
@@ -61,7 +61,7 @@ export default function StudentCard() {
           <div className="text-[11px] font-mono font-bold tracking-[0.25em] text-[#818cf8] uppercase flex items-center justify-center gap-1.5 opacity-90">
             <Scan className="w-3.5 h-3.5" /> DATA ENGINEER
           </div>
-          <h2 className="text-[28px] font-black text-white tracking-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+          <h2 className="text-[28px] font-black tracking-tight bg-gradient-to-r from-[#4f46e5] to-[#0ea5e9] bg-clip-text text-transparent drop-shadow-[0_2px_4px_rgba(15,23,42,0.35)]">
             Việt Hoàng
           </h2>
           <div className="text-[10px] font-mono text-slate-500 tracking-widest uppercase mt-2">
@@ -71,16 +71,16 @@ export default function StudentCard() {
       </div>
 
       {/* Bottom Footer */}
-      <div className="relative bg-slate-900/90 px-6 py-4 flex items-center justify-between border-t border-slate-700/50">
+      <div className="relative bg-gradient-to-r from-[#e9f4ff] to-[#eef2ff] px-6 py-4 flex items-center justify-between border-t border-[#c7d9f4]">
         <div className="flex items-center gap-3">
-          <div className="p-2 bg-slate-800 rounded-md border border-slate-700 group-hover:border-[#38bdf8]/50 transition-colors">
-            <Fingerprint className="w-5 h-5 text-slate-400 group-hover:text-[#38bdf8] transition-colors" />
+          <div className="p-2 bg-white rounded-md border border-[#d8e5f7] group-hover:border-[#38bdf8]/50 transition-colors">
+            <Fingerprint className="w-5 h-5 text-slate-500 group-hover:text-[#0284c7] transition-colors" />
           </div>
           <div className="flex flex-col">
-            <span className="text-[12px] font-bold tracking-[0.2em] text-slate-200 uppercase">
+            <span className="text-[12px] font-bold tracking-[0.2em] text-slate-700 uppercase">
               Intern
             </span>
-            <span className="text-[9px] font-mono text-[#38bdf8] tracking-widest opacity-80">
+            <span className="text-[9px] font-mono text-[#0284c7] tracking-widest opacity-90">
               LVL.01 ACCESS
             </span>
           </div>
@@ -91,7 +91,7 @@ export default function StudentCard() {
           {[40,80,60,100,50,90,40,70].map((h, i) => (
             <div 
               key={i} 
-              className="w-[3px] bg-slate-400 group-hover:bg-[#38bdf8] rounded-full transition-all duration-300" 
+              className="w-[3px] bg-slate-500 group-hover:bg-[#0284c7] rounded-full transition-all duration-300" 
               style={{ height: `${h}%`, transitionDelay: `${i * 30}ms` }} 
             />
           ))}

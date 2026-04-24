@@ -1,16 +1,46 @@
-# React + Vite
+# Portfolio (React + Vite)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Contact Form Setup (Deploy-ready)
 
-Currently, two official plugins are available:
+To ensure users can send messages to your Gmail (`vh971190@gmail.com`) after deployment, use Formspree.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### 1) Create a Formspree form
 
-## React Compiler
+1. Go to [Formspree](https://formspree.io/) and create a new form.
+2. Set recipient email to `vh971190@gmail.com`.
+3. Copy your endpoint, e.g. `https://formspree.io/f/xxxxx`.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 2) Configure environment variable
 
-## Expanding the ESLint configuration
+Copy `.env.example` to `.env`:
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```bash
+cp .env.example .env
+```
+
+Then set:
+
+```env
+VITE_CONTACT_ENDPOINT=https://formspree.io/f/your_form_id
+```
+
+### 3) Add env var on your hosting platform
+
+On Vercel / Netlify / Render, add:
+
+- Key: `VITE_CONTACT_ENDPOINT`
+- Value: your Formspree endpoint
+
+Then redeploy.
+
+### 4) Verify
+
+1. Open deployed site.
+2. Fill Name, Email, Message in Contact form.
+3. Submit and confirm success notification appears.
+4. Check inbox of `vh971190@gmail.com`.
+
+### Notes
+
+- Contact form code is in `src/components/sections/Contact.jsx`.
+- `.env` files are ignored by git; use `.env.example` for sharing config structure.

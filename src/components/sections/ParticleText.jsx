@@ -42,7 +42,8 @@ export default function ParticleText() {
       ctx.textAlign = isDesktop ? 'left' : 'center';
       const xPos = isDesktop ? 0 : canvas.width / 2;
 
-      ctx.fillStyle = '#ffffff';
+      // Use stronger contrast for light theme background
+      ctx.fillStyle = '#2563eb';
       ctx.font = `900 ${fontSize}px Inter, sans-serif`;
       ctx.fillText('Việt', xPos, 10);
 
@@ -53,8 +54,8 @@ export default function ParticleText() {
         isDesktop ? xPos + textWidth : xPos + textWidth/2, 
         0
       );
-      gradient.addColorStop(0, '#818cf8'); 
-      gradient.addColorStop(1, '#38bdf8');
+      gradient.addColorStop(0, '#4f46e5');
+      gradient.addColorStop(1, '#0ea5e9');
       
       ctx.fillStyle = gradient;
       ctx.fillText('Hoàng.', xPos, 10 + lineHeight);
@@ -90,8 +91,8 @@ export default function ParticleText() {
       if (!isVisible) return; // Pause animation when off-screen
 
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.shadowColor = 'rgba(56, 189, 248, 0.4)';
-      ctx.shadowBlur = 4;
+      ctx.shadowColor = 'rgba(37, 99, 235, 0.28)';
+      ctx.shadowBlur = 3;
 
       particles.forEach(p => {
         const dx = mouse.x - p.x;
