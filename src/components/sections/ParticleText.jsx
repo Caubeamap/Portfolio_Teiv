@@ -12,53 +12,74 @@ export default function ParticleText() {
     let particles = [];
     let mouse = { x: -1000, y: -1000, radius: 80 };
     let isVisible = true;
+    let resizeTimer;
 
     const init = () => {
       const parent = canvas.parentElement;
-      canvas.width = parent.clientWidth;
-      canvas.height = 360; 
-      
+      const width = Math.max(parent.clientWidth, 280);
       const w = window.innerWidth;
-      
-      // Increased font sizes significantly
-      let fontSize = 160;
-      let lineHeight = 155;
+      const isDesktop = w >= 1024;
+
+      canvas.width = width;
+
+      let fontSize = isDesktop
+        ? Math.min(150, Math.max(112, width * 0.22))
+        : Math.min(76, Math.max(58, width * 0.24));
+      let lineHeight = fontSize * 1.08;
       let gap = 5;
-      
+
       if (w < 640) {
-        fontSize = 75; lineHeight = 80; gap = 3;
+        gap = 3;
         mouse.radius = 50;
-        canvas.height = 200;
       } else if (w < 1024) {
-        fontSize = 110; lineHeight = 115; gap = 4;
+        fontSize = Math.min(108, Math.max(84, width * 0.2));
+        lineHeight = fontSize * 1.08;
+        gap = 4;
         mouse.radius = 60;
-        canvas.height = 280;
+      } else {
+        mouse.radius = 80;
       }
 
+      const xPos = isDesktop ? 0 : canvas.width / 2;
+      const firstLine = 'Việt';
+      const secondLine = 'Hoàng.';
+
+      ctx.textBaseline = 'top';
+      ctx.textAlign = isDesktop ? 'left' : 'center';
+      ctx.font = `900 ${fontSize}px Inter, sans-serif`;
+
+      const maxTextWidth = canvas.width * (isDesktop ? 0.98 : 0.92);
+      const widestText = Math.max(
+        ctx.measureText(firstLine).width,
+        ctx.measureText(secondLine).width,
+      );
+
+      if (widestText > maxTextWidth) {
+        fontSize *= maxTextWidth / widestText;
+        lineHeight = fontSize * 1.08;
+        ctx.font = `900 ${fontSize}px Inter, sans-serif`;
+      }
+
+      canvas.height = Math.ceil((lineHeight * 2) + (w < 640 ? 32 : 56));
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.textBaseline = 'top';
-      
-      const isDesktop = w >= 1024;
       ctx.textAlign = isDesktop ? 'left' : 'center';
-      const xPos = isDesktop ? 0 : canvas.width / 2;
-
-      // Use stronger contrast for light theme background
-      ctx.fillStyle = '#2563eb';
       ctx.font = `900 ${fontSize}px Inter, sans-serif`;
-      ctx.fillText('Việt', xPos, 10);
+      ctx.fillStyle = '#2563eb';
+      ctx.fillText(firstLine, xPos, 10);
 
-      const textWidth = ctx.measureText('Hoàng.').width;
+      const textWidth = ctx.measureText(secondLine).width;
       const gradient = ctx.createLinearGradient(
-        isDesktop ? xPos : xPos - textWidth/2, 
-        0, 
-        isDesktop ? xPos + textWidth : xPos + textWidth/2, 
-        0
+        isDesktop ? xPos : xPos - textWidth / 2,
+        0,
+        isDesktop ? xPos + textWidth : xPos + textWidth / 2,
+        0,
       );
       gradient.addColorStop(0, '#4f46e5');
       gradient.addColorStop(1, '#0ea5e9');
-      
+
       ctx.fillStyle = gradient;
-      ctx.fillText('Hoàng.', xPos, 10 + lineHeight);
+      ctx.fillText(secondLine, xPos, 10 + lineHeight);
 
       const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
       ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -73,14 +94,14 @@ export default function ParticleText() {
             const g = imageData.data[index + 1];
             const b = imageData.data[index + 2];
             particles.push({
-              x: x + (Math.random() - 0.5) * 20, 
+              x: x + (Math.random() - 0.5) * 20,
               y: y + (Math.random() - 0.5) * 20,
               baseX: x,
               baseY: y,
               vx: 0,
               vy: 0,
               color: `rgb(${r},${g},${b})`,
-              size: gap * 0.75
+              size: gap * 0.75,
             });
           }
         }
@@ -88,18 +109,18 @@ export default function ParticleText() {
     };
 
     const animate = () => {
-      if (!isVisible) return; // Pause animation when off-screen
+      if (!isVisible) return;
 
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.shadowColor = 'rgba(37, 99, 235, 0.28)';
       ctx.shadowBlur = 3;
 
-      particles.forEach(p => {
+      particles.forEach((p) => {
         const dx = mouse.x - p.x;
         const dy = mouse.y - p.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
-        
-        if (dist < mouse.radius) {
+
+        if (dist > 0 && dist < mouse.radius) {
           const forceDirectionX = dx / dist;
           const forceDirectionY = dy / dist;
           const force = (mouse.radius - dist) / mouse.radius;
@@ -126,9 +147,8 @@ export default function ParticleText() {
       animationFrameId = requestAnimationFrame(animate);
     };
 
-    // Use IntersectionObserver to pause off-screen rendering (Massive FPS boost)
     const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
+      entries.forEach((entry) => {
         if (entry.isIntersecting) {
           if (!isVisible) {
             isVisible = true;
@@ -139,17 +159,17 @@ export default function ParticleText() {
         }
       });
     }, { threshold: 0.1 });
-    
+
     observer.observe(canvas);
 
-    setTimeout(init, 100);
+    const initTimer = setTimeout(init, 100);
     animate();
 
     const handleReInit = () => {
-      clearTimeout(window.resizeTimer);
-      window.resizeTimer = setTimeout(init, 300);
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(init, 250);
     };
-    
+
     window.addEventListener('resize', handleReInit);
 
     const handleMouseMove = (e) => {
@@ -157,7 +177,7 @@ export default function ParticleText() {
       mouse.x = e.clientX - rect.left;
       mouse.y = e.clientY - rect.top;
     };
-    
+
     const handleTouchMove = (e) => {
       if (e.touches.length > 0) {
         const rect = canvas.getBoundingClientRect();
@@ -172,7 +192,7 @@ export default function ParticleText() {
     };
 
     const handleClick = () => {
-      particles.forEach(p => {
+      particles.forEach((p) => {
         p.vx += (Math.random() - 0.5) * 40;
         p.vy += (Math.random() - 0.5) * 40;
       });
@@ -185,6 +205,8 @@ export default function ParticleText() {
     canvas.addEventListener('touchend', handleMouseLeave);
 
     return () => {
+      clearTimeout(initTimer);
+      clearTimeout(resizeTimer);
       observer.disconnect();
       window.removeEventListener('resize', handleReInit);
       canvas.removeEventListener('mousemove', handleMouseMove);
@@ -197,9 +219,9 @@ export default function ParticleText() {
   }, []);
 
   return (
-    <canvas 
-      ref={canvasRef} 
-      className="w-full cursor-crosshair touch-none" 
+    <canvas
+      ref={canvasRef}
+      className="w-full cursor-crosshair touch-pan-y"
       style={{ display: 'block', margin: '0 auto' }}
       title="Click or hover to scatter the particles!"
     />

@@ -32,22 +32,22 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="min-h-screen flex items-center justify-center pt-24 pb-12 relative overflow-hidden"
+      className="min-h-[100svh] flex items-center justify-center pt-28 sm:pt-24 pb-10 sm:pb-12 relative overflow-hidden"
     >
       {/* Background ambient blobs for deep space effect */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#38bdf8] rounded-full mix-blend-multiply blob" style={{ animationDelay: "0s" }} />
-      <div className="absolute bottom-1/4 right-1/4 w-[28rem] h-[28rem] bg-[#818cf8] rounded-full mix-blend-multiply blob" style={{ animationDelay: "2s" }} />
+      <div className="absolute top-1/4 left-1/4 w-64 h-64 sm:w-96 sm:h-96 bg-[#38bdf8] rounded-full mix-blend-multiply blob pointer-events-none" style={{ animationDelay: "0s" }} />
+      <div className="absolute bottom-1/4 right-1/4 w-72 h-72 sm:w-[28rem] sm:h-[28rem] bg-[#818cf8] rounded-full mix-blend-multiply blob pointer-events-none" style={{ animationDelay: "2s" }} />
 
-      <div className="max-w-7xl mx-auto w-full px-6 sm:px-8 lg:px-12 relative z-10">
-        <div className="flex flex-col lg:flex-row gap-8 lg:gap-10 items-stretch">
+      <div className="max-w-7xl mx-auto w-full px-4 sm:px-8 lg:px-12 relative z-10">
+        <div className="flex flex-col lg:flex-row gap-6 sm:gap-8 lg:gap-10 items-stretch">
           {/* Left - Glass Panel 2/3 */}
           <div className="lg:basis-2/3 w-full animate-slide-in-left">
-            <div className="glass-panel rounded-3xl px-8 sm:px-10 lg:px-12 py-10 sm:py-12 lg:py-14 h-full flex flex-col justify-between relative overflow-hidden group">
+            <div className="glass-panel rounded-2xl sm:rounded-3xl px-5 sm:px-10 lg:px-12 py-8 sm:py-12 lg:py-14 h-full flex flex-col justify-between relative overflow-hidden group">
               
               {/* Subtle grid on the glass card */}
               <div className="absolute inset-0 bg-[linear-gradient(rgba(15,23,42,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(15,23,42,0.04)_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_70%,transparent_100%)] opacity-30 group-hover:opacity-50 transition-opacity duration-700" />
 
-              <div className="space-y-8 text-center lg:text-left relative z-10">
+              <div className="space-y-6 sm:space-y-8 text-center lg:text-left relative z-10">
                 {/* Intro Tag */}
                 <div className="animate-fade-in-up flex justify-center lg:justify-start">
                   <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-indigo-200 bg-white/80 backdrop-blur-md">
@@ -57,15 +57,15 @@ const Hero = () => {
                 </div>
 
                 {/* Name */}
-                <div className="animate-fade-in-up-delay-1 w-full lg:w-auto -ml-3">
+                <div className="animate-fade-in-up-delay-1 w-full lg:w-auto -mx-1 lg:-ml-3 lg:mr-0">
                   <ParticleText />
                 </div>
 
                 {/* Role */}
                 <div className="animate-fade-in-up-delay-2">
-                  <p className="text-xl sm:text-2xl font-medium text-slate-700">
-                    Data Engineer
-                    <span className="text-slate-400 font-light mx-4">|</span>
+                  <p className="flex flex-col items-center gap-1 text-lg sm:block sm:text-xl lg:text-2xl font-medium text-slate-700">
+                    <span>Data Engineer</span>
+                    <span className="hidden sm:inline text-slate-400 font-light mx-4">|</span>
                     <span className="text-slate-500 font-light">
                       Data Analyst Enthusiast
                     </span>
@@ -93,17 +93,17 @@ const Hero = () => {
               </div>
 
               {/* Buttons */}
-              <div className="mt-12 flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start animate-fade-in-up-delay-4 relative z-10">
+              <div className="mt-10 sm:mt-12 flex flex-col sm:flex-row items-center gap-3 sm:gap-4 justify-center lg:justify-start animate-fade-in-up-delay-4 relative z-10">
                 <a
                   href="#projects"
-                  className="group relative flex items-center gap-2 px-8 py-4 bg-slate-900 text-white rounded-full font-bold text-sm transition-all duration-300 hover:scale-105 hover:shadow-[0_0_28px_rgba(99,102,241,0.35)] w-full sm:w-auto justify-center"
+                  className="group relative flex items-center gap-2 px-6 sm:px-8 py-3.5 sm:py-4 bg-slate-900 text-white rounded-full font-bold text-xs sm:text-sm transition-all duration-300 hover:scale-105 hover:shadow-[0_0_28px_rgba(99,102,241,0.35)] w-full sm:w-auto justify-center"
                 >
                   <span>EXPLORE WORK</span>
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </a>
                 <a
                   href="#contact"
-                  className="group flex items-center gap-2 px-8 py-4 bg-white/80 hover:bg-white text-slate-800 rounded-full font-semibold text-sm transition-all duration-300 border border-slate-200 hover:border-indigo-300 backdrop-blur-md w-full sm:w-auto justify-center hover:shadow-[0_0_20px_rgba(99,102,241,0.16)]"
+                  className="group flex items-center gap-2 px-6 sm:px-8 py-3.5 sm:py-4 bg-white/80 hover:bg-white text-slate-800 rounded-full font-semibold text-xs sm:text-sm transition-all duration-300 border border-slate-200 hover:border-indigo-300 backdrop-blur-md w-full sm:w-auto justify-center hover:shadow-[0_0_20px_rgba(99,102,241,0.16)]"
                 >
                   <Phone className="w-4 h-4 opacity-70 group-hover:opacity-100 transition-opacity" />
                   <span>CONTACT ME</span>
@@ -113,12 +113,12 @@ const Hero = () => {
           </div>
 
           {/* Right - Profile Card (1/3) */}
-          <div className="lg:basis-1/3 w-full animate-slide-in-right min-h-[400px] lg:min-h-0 relative flex items-center justify-center perspective-[1000px]">
+          <div className="lg:basis-1/3 w-full animate-slide-in-right min-h-[340px] sm:min-h-[420px] lg:min-h-0 relative flex items-center justify-center perspective-[1000px]">
             {/* Ambient glowing backdrop */}
             <div className="absolute inset-0 bg-gradient-to-tr from-[#38bdf8]/20 via-transparent to-[#818cf8]/20 rounded-full blur-3xl opacity-60 blob" style={{ animationDuration: "6s" }}></div>
             
             {/* The Floating UI Element */}
-            <div className="relative w-full max-w-[320px] h-[480px] animate-float group z-10 mx-auto">
+            <div className="relative w-full max-w-[280px] sm:max-w-[320px] h-[410px] sm:h-[480px] animate-float group z-10 mx-auto">
               {/* Subtle backglow */}
               <div className="absolute -inset-1 bg-gradient-to-r from-[#38bdf8] to-[#818cf8] rounded-[26px] blur opacity-30 group-hover:opacity-60 transition-opacity duration-700 pointer-events-none" />
               

@@ -2,11 +2,11 @@ import { Github, Linkedin, Mail, Heart, Facebook } from 'lucide-react';
 
 const Footer = () => {
   return (
-    <footer className="relative border-t border-slate-800/50 py-12 overflow-hidden">
+    <footer className="relative border-t border-slate-800/50 py-10 sm:py-12 overflow-hidden">
       {/* Subtle glow on top edge */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-px bg-gradient-to-r from-transparent via-[#38bdf8]/30 to-transparent"></div>
       
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 relative z-10">
         <div className="flex flex-col md:flex-row justify-between items-center gap-8">
           <div className="text-center md:text-left">
             <span className="text-2xl font-black text-slate-900 tracking-tight">
@@ -17,7 +17,7 @@ const Footer = () => {
             </p>
           </div>
           
-          <div className="flex gap-4">
+          <div className="flex flex-wrap justify-center gap-3 sm:gap-4">
             <a
               href="https://github.com/Caubeamap"
               target="_blank"
@@ -70,7 +70,7 @@ const Footer = () => {
           <p className="text-slate-500 text-sm">
             &copy; {new Date().getFullYear()} Việt Hoàng. All rights reserved.
           </p>
-          <div className="flex gap-6 text-sm text-slate-500">
+          <div className="flex flex-wrap justify-center gap-4 sm:gap-6 text-sm text-slate-500">
             <span className="hover:text-slate-300 transition-colors cursor-pointer">Privacy Policy</span>
             <span className="hover:text-slate-300 transition-colors cursor-pointer">Terms of Service</span>
           </div>

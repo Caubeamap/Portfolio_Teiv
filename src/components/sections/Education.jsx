@@ -21,17 +21,17 @@ const Education = () => {
   ];
 
   return (
-    <section id="education" className="py-28 relative overflow-hidden">
+    <section id="education" className="py-20 sm:py-28 relative overflow-hidden">
       <div className="absolute -top-20 right-10 w-72 h-72 bg-sky-300/20 blur-3xl rounded-full pointer-events-none" />
       <div className="absolute bottom-0 left-10 w-80 h-80 bg-indigo-300/20 blur-3xl rounded-full pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
-        <div className="mb-14 text-center md:text-left">
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 relative z-10">
+        <div className="mb-10 sm:mb-14 text-center md:text-left">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-slate-200 bg-white/75 backdrop-blur-md">
             <Sparkles className="w-4 h-4 text-sky-600" />
             <span className="text-xs font-bold tracking-[0.25em] uppercase text-slate-600">Education</span>
           </div>
-          <h3 className="mt-5 text-4xl md:text-5xl font-black tracking-tight text-slate-900">
+          <h3 className="mt-5 text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-slate-900">
             Academic Journey
           </h3>
           <p className="mt-4 text-slate-600 max-w-2xl">
@@ -41,14 +41,14 @@ const Education = () => {
         </div>
 
         <div className="grid lg:grid-cols-5 gap-8">
-          <article className="lg:col-span-3 glass-panel rounded-3xl p-7 sm:p-8 border border-white/70 shadow-[0_18px_45px_rgba(15,23,42,0.12)] animate-fade-in-up">
-            <div className="flex items-start gap-4">
-              <div className="w-12 h-12 rounded-xl bg-sky-100 border border-sky-200 flex items-center justify-center">
+          <article className="lg:col-span-3 glass-panel rounded-2xl sm:rounded-3xl p-5 sm:p-8 border border-white/70 shadow-[0_18px_45px_rgba(15,23,42,0.12)] animate-fade-in-up">
+            <div className="flex items-start gap-3 sm:gap-4">
+              <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-sky-100 border border-sky-200 flex shrink-0 items-center justify-center">
                 <School className="w-6 h-6 text-sky-700" />
               </div>
               <div>
                 <p className="text-xs uppercase tracking-[0.25em] text-slate-500 font-semibold">University</p>
-                <h4 className="text-2xl sm:text-3xl font-black text-slate-900 mt-1">
+                <h4 className="text-xl sm:text-3xl font-black text-slate-900 mt-1">
                   University of Science (VNU-HCM)
                 </h4>
               </div>
@@ -99,7 +99,7 @@ const Education = () => {
           </article>
 
           <aside className="lg:col-span-2 flex flex-col gap-6">
-            <div className="glass-panel rounded-3xl p-6 border border-white/70 animate-fade-in-up-delay-1">
+              <div className="glass-panel rounded-2xl sm:rounded-3xl p-5 sm:p-6 border border-white/70 animate-fade-in-up-delay-1">
               <div className="flex items-center gap-2 mb-5">
                 <Calendar className="w-4 h-4 text-indigo-600" />
                 <p className="text-xs uppercase tracking-[0.2em] text-slate-500 font-semibold">Timeline</p>
@@ -119,7 +119,7 @@ const Education = () => {
               </ol>
             </div>
 
-            <div className="glass-panel rounded-3xl overflow-hidden border border-white/70 animate-fade-in-up-delay-2">
+            <div className="glass-panel rounded-2xl sm:rounded-3xl overflow-hidden border border-white/70 animate-fade-in-up-delay-2">
               <img
                 src={campusImage}
                 alt="University of Science VNU-HCM campus"

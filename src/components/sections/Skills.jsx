@@ -1,5 +1,5 @@
 import { Sparkles, Code2, Database, Globe, Cpu, GitBranch, Layout, Server, Gauge } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion as Motion } from 'framer-motion';
 
 // Import available logos
 import jsLogo from '../../assets/javascript.jpg';
@@ -37,37 +37,37 @@ const Skills = () => {
   ];
 
   const SkillCard = ({ skill }) => (
-    <div className={`flex items-center gap-4 px-6 py-4 rounded-2xl glass-panel group min-w-[200px] relative overflow-hidden transition-all duration-500 border ${skill.border} hover:border-indigo-300`}
+    <div className={`flex items-center gap-3 sm:gap-4 px-4 sm:px-6 py-3 sm:py-4 rounded-2xl glass-panel group min-w-[160px] sm:min-w-[200px] relative overflow-hidden transition-all duration-500 border ${skill.border} hover:border-indigo-300`}
     >
       <div className={`absolute inset-0 bg-gradient-to-br ${skill.color} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}></div>
-      <div className="w-10 h-10 flex items-center justify-center relative z-10">
+      <div className="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center relative z-10">
         {skill.logo ? (
-          <img src={skill.logo} alt={skill.name} className="w-9 h-9 object-contain rounded-lg group-hover:scale-110 transition-transform duration-500" />
+          <img src={skill.logo} alt={skill.name} className="w-8 h-8 sm:w-9 sm:h-9 object-contain rounded-lg group-hover:scale-110 transition-transform duration-500" />
         ) : (
-          <skill.icon className="w-7 h-7 text-slate-500 group-hover:text-slate-900 transition-colors" />
+          <skill.icon className="w-6 h-6 sm:w-7 sm:h-7 text-slate-500 group-hover:text-slate-900 transition-colors" />
         )}
       </div>
-      <span className="text-lg font-bold text-slate-700 group-hover:text-slate-900 transition-colors relative z-10 uppercase tracking-wide">
+      <span className="text-sm sm:text-lg font-bold text-slate-700 group-hover:text-slate-900 transition-colors relative z-10 uppercase tracking-wide">
         {skill.name}
       </span>
     </div>
   );
 
   return (
-    <section id="skills" className="py-24 relative overflow-hidden">
+    <section id="skills" className="py-20 sm:py-24 relative overflow-hidden">
       {/* Decorative center glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-[#38bdf8]/15 rounded-full blur-[150px] pointer-events-none opacity-50" />
       
-      <div className="max-w-7xl mx-auto px-6 mb-20 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 mb-12 sm:mb-20 relative z-10">
         <div className="text-center md:text-left">
           <div className="inline-flex items-center gap-2 mb-4">
             <Sparkles className="w-4 h-4 text-[#38bdf8]" />
             <h2 className="text-xs font-bold tracking-[0.3em] text-[#0284c7] uppercase">Skills & Mastery</h2>
           </div>
-          <h3 className="text-4xl md:text-6xl font-black text-slate-900 tracking-tight">
+          <h3 className="text-3xl sm:text-4xl md:text-6xl font-black text-slate-900 tracking-tight">
             My Technological <span className="text-gradient">Arsenal.</span>
           </h3>
-          <p className="mt-6 text-slate-600 max-w-2xl text-lg font-medium leading-relaxed">
+          <p className="mt-5 sm:mt-6 text-slate-600 max-w-2xl text-base sm:text-lg font-medium leading-relaxed">
             I specialize in bridging the gap between <span className="text-[#38bdf8]">robust data engineering</span> and <span className="text-[#818cf8]">dynamic frontend experiences.</span>
           </p>
         </div>
@@ -76,8 +76,8 @@ const Skills = () => {
       <div className="relative space-y-8 flex flex-col items-center">
         {/* Row 1: Left moving */}
         <div className="w-full flex overflow-hidden mask-fade mask-x group">
-          <motion.div 
-            className="flex gap-8 py-4 px-4 whitespace-nowrap"
+          <Motion.div
+            className="flex gap-4 sm:gap-8 py-3 sm:py-4 px-4 whitespace-nowrap"
             animate={{ x: [0, -1920] }}
             transition={{ 
               x: { duration: 35, repeat: Infinity, ease: "linear" }
@@ -86,13 +86,13 @@ const Skills = () => {
             {[...row1, ...row1, ...row1].map((skill, idx) => (
               <SkillCard key={`r1-${idx}`} skill={skill} />
             ))}
-          </motion.div>
+          </Motion.div>
         </div>
 
         {/* Row 2: Right moving */}
         <div className="w-full flex overflow-hidden mask-fade mask-x group">
-          <motion.div 
-            className="flex gap-8 py-4 px-4 whitespace-nowrap"
+          <Motion.div
+            className="flex gap-4 sm:gap-8 py-3 sm:py-4 px-4 whitespace-nowrap"
             animate={{ x: [-1920, 0] }}
             transition={{ 
               x: { duration: 40, repeat: Infinity, ease: "linear" }
@@ -101,7 +101,7 @@ const Skills = () => {
             {[...row2, ...row2, ...row2].map((skill, idx) => (
               <SkillCard key={`r2-${idx}`} skill={skill} />
             ))}
-          </motion.div>
+          </Motion.div>
         </div>
       </div>
 
@@ -116,4 +116,3 @@ const Skills = () => {
 };
 
 export default Skills;
-

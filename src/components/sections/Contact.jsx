@@ -16,6 +16,8 @@ const CONTACT_ENDPOINT = import.meta.env.VITE_CONTACT_ENDPOINT || "";
 
 const Field = ({ id, label, value, error, onChange, textarea = false }) => {
   const isActive = value.length > 0;
+  const inputType = id === "email" ? "email" : "text";
+  const autoComplete = id === "email" ? "email" : id === "name" ? "name" : undefined;
   const sharedClass =
     "peer w-full bg-white/70 dark:bg-slate-900/60 border rounded-2xl px-4 pt-6 pb-2.5 text-slate-900 dark:text-slate-100 placeholder-transparent focus:outline-none focus:ring-2 transition-all duration-300";
   const borderClass = error
@@ -28,6 +30,7 @@ const Field = ({ id, label, value, error, onChange, textarea = false }) => {
         {textarea ? (
           <textarea
             id={id}
+            name={id}
             rows={5}
             value={value}
             onChange={(e) => onChange(e.target.value)}
@@ -37,6 +40,9 @@ const Field = ({ id, label, value, error, onChange, textarea = false }) => {
         ) : (
           <input
             id={id}
+            name={id}
+            type={inputType}
+            autoComplete={autoComplete}
             value={value}
             onChange={(e) => onChange(e.target.value)}
             placeholder={label}
@@ -190,21 +196,21 @@ const Contact = () => {
   ];
 
   return (
-    <section id="contact" ref={sectionRef} className="py-28 relative overflow-hidden">
+    <section id="contact" ref={sectionRef} className="py-20 sm:py-28 relative overflow-hidden">
       <div className="absolute top-0 right-0 w-full h-px bg-gradient-to-l from-transparent via-slate-300 to-transparent" />
       <div className="absolute bottom-1/4 left-1/4 w-[500px] h-[500px] bg-[#38bdf8]/14 rounded-full blur-[120px] pointer-events-none transform -translate-x-1/2 translate-y-1/2" />
 
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
-        <div className={`${revealed ? "animate-fade-in-up" : "opacity-0"} text-center mb-14`}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 relative z-10">
+        <div className={`${revealed ? "animate-fade-in-up" : "opacity-0"} text-center mb-10 sm:mb-14`}>
           <div className="inline-flex items-center justify-center gap-2 mb-4">
             <Sparkles className="w-4 h-4 text-[#818cf8]" />
             <h2 className="text-xs font-bold tracking-[0.2em] text-[#818cf8] uppercase">Get In Touch</h2>
             <Sparkles className="w-4 h-4 text-[#818cf8]" />
           </div>
-          <h3 className="text-4xl md:text-6xl font-black text-slate-900 dark:text-slate-100 mb-5 tracking-tight">
+          <h3 className="text-3xl sm:text-4xl md:text-6xl font-black text-slate-900 dark:text-slate-100 mb-5 tracking-tight">
             Let&apos;s connect professionally.
           </h3>
-          <p className="text-slate-600 dark:text-slate-300 max-w-2xl mx-auto text-lg">
+          <p className="text-slate-600 dark:text-slate-300 max-w-2xl mx-auto text-base sm:text-lg">
             Software developer based in Ho Chi Minh City, open to internship and early-career opportunities.
           </p>
         </div>
@@ -247,7 +253,7 @@ const Contact = () => {
 
           <form
             onSubmit={handleSubmit}
-            className={`${revealed ? "animate-fade-in-up-delay-2" : "opacity-0"} xl:col-span-3 glass-panel p-7 md:p-8 rounded-3xl border border-white/70 dark:border-slate-700 relative overflow-hidden`}
+            className={`${revealed ? "animate-fade-in-up-delay-2" : "opacity-0"} xl:col-span-3 glass-panel p-5 sm:p-7 md:p-8 rounded-2xl sm:rounded-3xl border border-white/70 dark:border-slate-700 relative overflow-hidden`}
           >
             <div className="absolute inset-0 bg-gradient-to-br from-[#818cf8]/8 to-transparent pointer-events-none" />
 

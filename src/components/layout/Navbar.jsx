@@ -1,6 +1,16 @@
 import { useState, useEffect, useRef } from 'react';
 import { Menu, X } from 'lucide-react';
 
+const NAV_LINKS = [
+  { name: 'Home', href: '#home' },
+  { name: 'About', href: '#about' },
+  { name: 'Skills', href: '#skills' },
+  { name: 'Projects', href: '#projects' },
+  { name: 'Education', href: '#education' },
+  { name: 'Resume', href: '#resume' },
+  { name: 'Contact', href: '#contact' },
+];
+
 const Navbar = () => {
   const [activeSection, setActiveSection] = useState('home');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -8,16 +18,6 @@ const Navbar = () => {
   const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 0 });
   const navRef = useRef(null);
   const linksRef = useRef({});
-
-  const navLinks = [
-    { name: 'Home', href: '#home' },
-    { name: 'About', href: '#about' },
-    { name: 'Skills', href: '#skills' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Education', href: '#education' },
-    { name: 'Resume', href: '#resume' },
-    { name: 'Contact', href: '#contact' },
-  ];
 
   // Entrance animation
   useEffect(() => {
@@ -28,7 +28,7 @@ const Navbar = () => {
   // Scroll spy
   useEffect(() => {
     const handleScroll = () => {
-      const sections = navLinks.map(link => link.href.replace('#', ''));
+      const sections = NAV_LINKS.map(link => link.href.replace('#', ''));
       for (let i = sections.length - 1; i >= 0; i--) {
         const section = document.getElementById(sections[i]);
         if (section) {
@@ -65,9 +65,10 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed top-0 w-full lg:w-2/3 mx-auto z-50 flex justify-center pt-6 px-4 transition-all duration-700 ease-out ${
+      className={`fixed top-0 left-0 right-0 z-50 flex justify-center pt-4 sm:pt-6 px-3 sm:px-4 transition-all duration-700 ease-out ${
         isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-8'
       }`}
+      aria-label="Primary navigation"
     >
       {/* ─── Desktop Navbar ─── */}
       <div
@@ -91,7 +92,7 @@ const Navbar = () => {
           }}
         />
 
-        {navLinks.map((link) => {
+        {NAV_LINKS.map((link) => {
           const sectionId = link.href.replace('#', '');
           const isActive = activeSection === sectionId;
           return (
@@ -119,11 +120,15 @@ const Navbar = () => {
       {/* ─── Mobile Navbar ─── */}
       <div className="lg:hidden w-full">
         <div
-          className="flex items-center justify-between glass-panel rounded-2xl px-6 py-4"
+          className="flex items-center justify-between glass-panel rounded-2xl px-4 py-3.5 sm:px-6 sm:py-4"
         >
           <span className="text-lg font-black text-slate-900 tracking-tight">Việt <span className="text-gradient-primary">Hoàng.</span></span>
           <button
+            type="button"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label={isMobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+            aria-expanded={isMobileMenuOpen}
+            aria-controls="mobile-navigation-menu"
             className="relative w-9 h-9 flex items-center justify-center rounded-[10px] bg-slate-100 hover:bg-slate-200 text-slate-600 hover:text-slate-900 transition-all"
           >
             <span className={`transition-all duration-300 absolute ${isMobileMenuOpen ? 'rotate-90 opacity-0' : 'rotate-0 opacity-100'}`}>
@@ -137,6 +142,7 @@ const Navbar = () => {
 
         {/* Mobile dropdown */}
         <div
+          id="mobile-navigation-menu"
           className="overflow-hidden transition-all duration-400 ease-out"
           style={{
             maxHeight: isMobileMenuOpen ? '420px' : '0px',
@@ -148,7 +154,7 @@ const Navbar = () => {
           <div
             className="glass-panel rounded-[16px] py-2 px-2"
           >
-            {navLinks.map((link, index) => {
+            {NAV_LINKS.map((link, index) => {
               const sectionId = link.href.replace('#', '');
               const isActive = activeSection === sectionId;
               return (

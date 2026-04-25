@@ -69,12 +69,12 @@ const Resume = () => {
     <section
       id="resume"
       ref={sectionRef}
-      className="py-28 relative overflow-hidden"
+      className="py-20 sm:py-28 relative overflow-hidden"
     >
       <div className="absolute -top-10 left-0 w-72 h-72 bg-indigo-300/20 blur-3xl rounded-full pointer-events-none" />
       <div className="absolute bottom-0 right-0 w-80 h-80 bg-sky-300/20 blur-3xl rounded-full pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 relative z-10">
         <div
           className={`${revealed ? "animate-fade-in-up" : "opacity-0"} mb-14`}
         >
@@ -82,13 +82,13 @@ const Resume = () => {
             Resume Snapshot
           </p>
           <div className="mt-4 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
-            <h3 className="text-4xl md:text-5xl font-black tracking-tight text-slate-900 dark:text-slate-100">
+            <h3 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-slate-900 dark:text-slate-100">
               Professional Highlights
             </h3>
             <a
               href="/gnoah_teiv_cv.pdf"
               download="Hoang_Quoc_Viet_CV.pdf"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-slate-900 text-white hover:bg-black transition-all duration-300 hover:scale-[1.02] w-fit"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-slate-900 text-white hover:bg-black transition-all duration-300 hover:scale-[1.02] w-full sm:w-fit"
             >
               <Download className="w-4 h-4" />
               <span className="text-sm font-semibold">Download CV</span>
@@ -99,7 +99,7 @@ const Resume = () => {
         <div className="grid lg:grid-cols-12 gap-7">
           <div className="lg:col-span-8 space-y-7">
             <article
-              className={`${revealed ? "animate-fade-in-up-delay-1" : "opacity-0"} glass-panel rounded-3xl p-7 border border-white/70 dark:border-slate-700`}
+              className={`${revealed ? "animate-fade-in-up-delay-1" : "opacity-0"} glass-panel rounded-2xl sm:rounded-3xl p-5 sm:p-7 border border-white/70 dark:border-slate-700`}
             >
               <div className="flex items-center gap-3">
                 <Briefcase className="w-5 h-5 text-sky-600" />
@@ -109,7 +109,7 @@ const Resume = () => {
               </div>
 
               <div className="mt-6 space-y-6">
-                <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/70 dark:bg-slate-900/60 p-5 hover:-translate-y-1 transition-all duration-300">
+                <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/70 dark:bg-slate-900/60 p-4 sm:p-5 hover:-translate-y-1 transition-all duration-300">
                   <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
                     <div>
                       <h5 className="text-lg font-bold text-slate-900 dark:text-slate-100">
@@ -142,7 +142,7 @@ const Resume = () => {
                   </ul>
                 </div>
 
-                <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/70 dark:bg-slate-900/60 p-5 hover:-translate-y-1 transition-all duration-300">
+                <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/70 dark:bg-slate-900/60 p-4 sm:p-5 hover:-translate-y-1 transition-all duration-300">
                   <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
                     <div>
                       <h5 className="text-lg font-bold text-slate-900 dark:text-slate-100">
@@ -177,7 +177,7 @@ const Resume = () => {
             </article>
 
             <article
-              className={`${revealed ? "animate-fade-in-up-delay-2" : "opacity-0"} glass-panel rounded-3xl p-7 border border-white/70 dark:border-slate-700`}
+              className={`${revealed ? "animate-fade-in-up-delay-2" : "opacity-0"} glass-panel rounded-2xl sm:rounded-3xl p-5 sm:p-7 border border-white/70 dark:border-slate-700`}
             >
               <div className="flex items-center gap-3 mb-5">
                 <Code2 className="w-5 h-5 text-indigo-600" />
@@ -211,7 +211,7 @@ const Resume = () => {
 
           <aside className="lg:col-span-4 space-y-7">
             <div
-              className={`${revealed ? "animate-fade-in-up-delay-1" : "opacity-0"} glass-panel rounded-3xl p-6 border border-white/70 dark:border-slate-700`}
+              className={`${revealed ? "animate-fade-in-up-delay-1" : "opacity-0"} glass-panel rounded-2xl sm:rounded-3xl p-5 sm:p-6 border border-white/70 dark:border-slate-700`}
             >
               <div className="flex items-center gap-2 mb-5">
                 <Trophy className="w-5 h-5 text-amber-500" />
@@ -256,7 +256,7 @@ const Resume = () => {
             </div>
 
             <div
-              className={`${revealed ? "animate-fade-in-up-delay-2" : "opacity-0"} glass-panel rounded-3xl p-6 border border-white/70 dark:border-slate-700`}
+              className={`${revealed ? "animate-fade-in-up-delay-2" : "opacity-0"} glass-panel rounded-2xl sm:rounded-3xl p-5 sm:p-6 border border-white/70 dark:border-slate-700`}
             >
               <div className="flex items-center gap-2 mb-4">
                 <GraduationCap className="w-5 h-5 text-indigo-600" />

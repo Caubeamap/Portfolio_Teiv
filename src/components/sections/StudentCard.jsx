@@ -19,10 +19,10 @@ export default function StudentCard() {
       <div className="absolute inset-0 opacity-[0.05] bg-[linear-gradient(rgba(56,189,248,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(56,189,248,0.1)_1px,transparent_1px)] [background-size:20px_20px] pointer-events-none mix-blend-screen" />
       
       {/* Top Header */}
-      <div className="relative px-6 pt-5 pb-4 flex items-center justify-between border-b border-[#38bdf8]/20 bg-gradient-to-b from-[#38bdf8]/10 to-transparent">
+      <div className="relative px-5 sm:px-6 pt-4 sm:pt-5 pb-3.5 sm:pb-4 flex items-center justify-between border-b border-[#38bdf8]/20 bg-gradient-to-b from-[#38bdf8]/10 to-transparent">
         <div className="flex items-center gap-2.5">
           <Network className="w-4 h-4 text-[#38bdf8] opacity-80" />
-          <span className="text-[12px] font-bold tracking-[0.3em] text-[#38bdf8] uppercase">
+          <span className="text-[11px] sm:text-[12px] font-bold tracking-[0.25em] sm:tracking-[0.3em] text-[#38bdf8] uppercase">
             FIT.HCMUS
           </span>
         </div>
@@ -36,9 +36,9 @@ export default function StudentCard() {
       </div>
 
       {/* Main Content */}
-      <div className="relative flex-1 flex flex-col items-center justify-center p-8 z-10 pb-6">
+      <div className="relative flex-1 flex flex-col items-center justify-center p-6 sm:p-8 z-10 pb-5 sm:pb-6">
         {/* Holographic Avatar Container */}
-        <div className="relative w-[140px] h-[140px] mb-6">
+        <div className="relative w-[120px] h-[120px] sm:w-[140px] sm:h-[140px] mb-5 sm:mb-6">
           {/* Rotating outer rings */}
           <div className="absolute -inset-3 border border-[#38bdf8]/30 rounded-full animate-[spin_12s_linear_infinite] border-t-[#38bdf8] border-r-[#38bdf8] drop-shadow-[0_0_8px_rgba(56,189,248,0.5)]" />
           <div className="absolute -inset-1 border border-indigo-500/30 rounded-full animate-[spin_8s_linear_infinite_reverse] border-b-indigo-400 drop-shadow-[0_0_5px_rgba(129,140,248,0.5)]" />
@@ -61,7 +61,7 @@ export default function StudentCard() {
           <div className="text-[11px] font-mono font-bold tracking-[0.25em] text-[#818cf8] uppercase flex items-center justify-center gap-1.5 opacity-90">
             <Scan className="w-3.5 h-3.5" /> DATA ENGINEER
           </div>
-          <h2 className="text-[28px] font-black tracking-tight bg-gradient-to-r from-[#4f46e5] to-[#0ea5e9] bg-clip-text text-transparent drop-shadow-[0_2px_4px_rgba(15,23,42,0.35)]">
+          <h2 className="text-[24px] sm:text-[28px] font-black tracking-tight bg-gradient-to-r from-[#4f46e5] to-[#0ea5e9] bg-clip-text text-transparent drop-shadow-[0_2px_4px_rgba(15,23,42,0.35)]">
             Việt Hoàng
           </h2>
           <div className="text-[10px] font-mono text-slate-500 tracking-widest uppercase mt-2">
@@ -71,7 +71,7 @@ export default function StudentCard() {
       </div>
 
       {/* Bottom Footer */}
-      <div className="relative bg-gradient-to-r from-[#e9f4ff] to-[#eef2ff] px-6 py-4 flex items-center justify-between border-t border-[#c7d9f4]">
+      <div className="relative bg-gradient-to-r from-[#e9f4ff] to-[#eef2ff] px-5 sm:px-6 py-3.5 sm:py-4 flex items-center justify-between border-t border-[#c7d9f4]">
         <div className="flex items-center gap-3">
           <div className="p-2 bg-white rounded-md border border-[#d8e5f7] group-hover:border-[#38bdf8]/50 transition-colors">
             <Fingerprint className="w-5 h-5 text-slate-500 group-hover:text-[#0284c7] transition-colors" />
